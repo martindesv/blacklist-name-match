@@ -6,16 +6,17 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(new File(args[0]))) {
+        System.out.println("Start program");
+        try (Scanner scanner = new Scanner(new File(args[1]))) {
             while (scanner.hasNext()) {
-                System.out.println(scanner.nextLine());
+                checkNames(scanner.nextLine(), args[0]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static void checkNames(String test) {
-        System.out.println(test);
+    public static void checkNames(String line, String blacklistedName) {
+        System.out.println(line.equals(blacklistedName));
     }
 }
