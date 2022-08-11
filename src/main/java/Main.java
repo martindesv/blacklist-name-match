@@ -3,6 +3,8 @@ package src.main.java;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +18,12 @@ public class Main {
         }
     }
 
-    public static void checkNames(String line, String blacklistedName) {
-        System.out.println(line.equals(blacklistedName));
+    public static void checkNames(String line, String name) {
+        Pattern pattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(line);
+        boolean matchFound = matcher.find();
+        if (matchFound) {
+            System.out.println("Match found: " + line);
+        }
     }
 }
