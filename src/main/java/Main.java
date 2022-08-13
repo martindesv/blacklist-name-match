@@ -11,16 +11,14 @@ public class Main {
         String[] inputNameArray;
         inputNameArray = args[0].split(" ");
 
-        SortedSet<String> inputNameSet =
-                new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        Set<String> inputNameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         Collections.addAll(inputNameSet, inputNameArray);
 
         try (Scanner scanner = new Scanner(new File(args[1]))) {
             while (scanner.hasNext()) {
                 String[] listNameArray;
                 listNameArray = scanner.nextLine().split(" ");
-                SortedSet<String> listNameSet =
-                        new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+                Set<String> listNameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
                 Collections.addAll(listNameSet, listNameArray);
                 checkNames(inputNameSet, listNameSet);
             }
@@ -29,11 +27,13 @@ public class Main {
         }
     }
 
-    public static void checkNames(SortedSet<String> inputNameSet, SortedSet<String> listNameSet) {
-        if (inputNameSet.equals(listNameSet)) {
-            System.out.println("Match found:");
-            System.out.println(inputNameSet);
-            System.out.println(listNameSet);
+    public static void checkNames(Set<String> inputNameSet, Set<String> listNameSet) {
+        List<String> common = new ArrayList<>(inputNameSet);
+        common.retainAll(listNameSet);
+        if (common.size() >= 2) {
+            System.out.println("Match found");
+            System.out.println("inputNameSet " + inputNameSet);
+            System.out.println("listNameSet " + listNameSet);
         }
     }
 }
