@@ -6,8 +6,9 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println();
         System.out.println("Start program");
-
+        System.out.println();
         String[] inputNameArray;
         inputNameArray = args[0].split(" ");
 
@@ -31,9 +32,9 @@ public class Main {
         List<String> common = new ArrayList<>(inputNameSet);
         common.retainAll(listNameSet);
         if (common.size() >= 2) {
-            System.out.println("Match found");
             System.out.println("inputNameSet " + inputNameSet);
             System.out.println("listNameSet " + listNameSet);
+            System.out.println("Match is found!");
         }
     }
 }
