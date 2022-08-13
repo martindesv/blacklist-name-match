@@ -6,29 +6,30 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println("Start program");
-        System.out.println();
-        String[] inputNameArray;
-        inputNameArray = args[0].split(" ");
+        final String inputName = args[0];
+        final String fileLocation = args[1];
 
-        Set<String> inputNameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        Collections.addAll(inputNameSet, inputNameArray);
+        Set<String> inputNameSet = createNameSet(inputName);
 
-        try (Scanner scanner = new Scanner(new File(args[1]))) {
+        try (Scanner scanner = new Scanner(new File(fileLocation))) {
             while (scanner.hasNext()) {
-                String[] listNameArray;
-                listNameArray = scanner.nextLine().split(" ");
-                Set<String> listNameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-                Collections.addAll(listNameSet, listNameArray);
-                checkNames(inputNameSet, listNameSet);
+                Set<String> listNameSet = createNameSet(scanner.nextLine());
+                compareNames(inputNameSet, listNameSet);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static void checkNames(Set<String> inputNameSet, Set<String> listNameSet) {
+    private static Set<String> createNameSet(String inputName) {
+        String[] inputNameArray;
+        inputNameArray = inputName.split(" ");
+        Set<String> nameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        Collections.addAll(nameSet, inputNameArray);
+        return nameSet;
+    }
+
+    private static void compareNames(Set<String> inputNameSet, Set<String> listNameSet) {
         List<String> common = new ArrayList<>(inputNameSet);
         common.retainAll(listNameSet);
         if (common.size() >= 2) {
