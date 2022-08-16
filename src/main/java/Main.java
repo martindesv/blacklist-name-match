@@ -12,7 +12,11 @@ public class Main {
         try (Scanner scanner = new Scanner(new File(fileLocation))) {
             while (scanner.hasNext()) {
                 Set<String> listNameSet = createNameSet(scanner.nextLine());
-                compareNames(inputNameSet, listNameSet);
+                if (isMatch(inputNameSet, listNameSet)) {
+                    System.out.println("inputNameSet " + inputNameSet);
+                    System.out.println("listNameSet " + listNameSet);
+                    System.out.println("Match is found!");
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -27,13 +31,13 @@ public class Main {
         return nameSet;
     }
 
-    public static void compareNames(Set<String> inputNameSet, Set<String> listNameSet) {
+    public static boolean isMatch(Set<String> inputNameSet, Set<String> listNameSet) {
         List<String> common = new ArrayList<>(inputNameSet);
         common.retainAll(listNameSet);
-        if (common.size() >= 2) {
-            System.out.println("inputNameSet " + inputNameSet);
-            System.out.println("listNameSet " + listNameSet);
-            System.out.println("Match is found!");
+        if (inputNameSet.size() == 1) {
+            return common.size() >= 1;
         }
+
+        return common.size() >= 2;
     }
 }
