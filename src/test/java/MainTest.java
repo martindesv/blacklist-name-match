@@ -2,15 +2,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MainTest {
+
     @Test
     public void TestEquals() {
         assertTrue(Main.isMatch(
-                Main.createNameSet("mary tree"),
-                Main.createNameSet("MarY tree")));
+                Main.createNameSet("Osama Laden"),
+                Main.createNameSet("Osama Bin Laden")));
+
+        assertTrue(Main.isMatch(
+                Main.createNameSet("Bin Laden, Osama"),
+                Main.createNameSet("osama Bin LADEN")));
+
+        assertTrue(Main.isMatch(
+                Main.createNameSet("Laden Osama Bin"),
+                Main.createNameSet("Osama Bin")));
 
         assertTrue(Main.isMatch(
                 Main.createNameSet("Oscar"),
-                Main.createNameSet("Oscar")));
+                Main.createNameSet("oscar")));
     }
 
     @Test

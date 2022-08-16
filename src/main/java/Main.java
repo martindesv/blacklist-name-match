@@ -5,12 +5,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         final String inputName = args[0];
-        final String nameFileLocation = args[1];
-        final String noiseFileLocation = args[2];
+        final String namesFileLocation = args[1];
+        final String noiseWordsFileLocation = args[2];
 
         Set<String> inputNameSet = createNameSet(inputName);
 
-        try (Scanner scanner = new Scanner(new File(nameFileLocation))) {
+        try (Scanner scanner = new Scanner(new File(namesFileLocation))) {
             while (scanner.hasNext()) {
                 Set<String> listNameSet = createNameSet(scanner.nextLine());
                 if (isMatch(inputNameSet, listNameSet)) {
@@ -26,7 +26,7 @@ public class Main {
 
     public static Set<String> createNameSet(String inputName) {
         String[] inputNameArray;
-        inputNameArray = inputName.split(" ");
+        inputNameArray = inputName.replaceAll("\\p{Punct}", "").split(" ");
         Set<String> nameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         Collections.addAll(nameSet, inputNameArray);
         return nameSet;
@@ -36,7 +36,7 @@ public class Main {
         List<String> common = new ArrayList<>(inputNameSet);
         common.retainAll(listNameSet);
         if (inputNameSet.size() == 1) {
-            return common.size() >= 1;
+            return common.size() == 1;
         }
 
         return common.size() >= 2;
