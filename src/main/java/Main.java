@@ -5,11 +5,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         final String inputName = args[0];
-        final String fileLocation = args[1];
+        final String nameFileLocation = args[1];
+        final String noiseFileLocation = args[2];
 
         Set<String> inputNameSet = createNameSet(inputName);
 
-        try (Scanner scanner = new Scanner(new File(fileLocation))) {
+        try (Scanner scanner = new Scanner(new File(nameFileLocation))) {
             while (scanner.hasNext()) {
                 Set<String> listNameSet = createNameSet(scanner.nextLine());
                 if (isMatch(inputNameSet, listNameSet)) {
