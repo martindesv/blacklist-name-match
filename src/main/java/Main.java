@@ -19,7 +19,7 @@ public class Main {
         }
     }
 
-    private static Set<String> createNameSet(String inputName) {
+    public static Set<String> createNameSet(String inputName) {
         String[] inputNameArray;
         inputNameArray = inputName.split(" ");
         Set<String> nameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -27,7 +27,7 @@ public class Main {
         return nameSet;
     }
 
-    private static void compareNames(Set<String> inputNameSet, Set<String> listNameSet) {
+    public static void compareNames(Set<String> inputNameSet, Set<String> listNameSet) {
         List<String> common = new ArrayList<>(inputNameSet);
         common.retainAll(listNameSet);
         if (common.size() >= 2) {
