@@ -8,11 +8,13 @@ public class Main {
         final String namesFileLocation = args[1];
         final String noiseWordsFileLocation = args[2];
 
-        Set<String> inputNameSet = createNameSet(inputName);
+        Set<String> noiseWordsArr = createNoiseWordsArr(noiseWordsFileLocation);
+
+        Set<String> inputNameSet = createNameSet(inputName, noiseWordsArr);
 
         try (Scanner scanner = new Scanner(new File(namesFileLocation))) {
             while (scanner.hasNext()) {
-                Set<String> listNameSet = createNameSet(scanner.nextLine());
+                Set<String> listNameSet = createNameSet(scanner.nextLine(), noiseWordsArr);
                 if (isMatch(inputNameSet, listNameSet)) {
                     System.out.println("inputNameSet " + inputNameSet);
                     System.out.println("listNameSet " + listNameSet);
@@ -24,12 +26,26 @@ public class Main {
         }
     }
 
-    public static Set<String> createNameSet(String inputName) {
+    public static Set<String> createNameSet(String inputName, Set<String> noiseWordsArr) {
         String[] inputNameArray;
         inputNameArray = inputName.replaceAll("\\p{Punct}", "").split(" ");
         Set<String> nameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         Collections.addAll(nameSet, inputNameArray);
+        nameSet.removeAll(noiseWordsArr);
         return nameSet;
+    }
+
+    public static Set<String> createNoiseWordsArr(String noiseWordsFileLocation) {
+        Set<String> noiseWordsArr = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        try (Scanner scanner = new Scanner(new File(noiseWordsFileLocation))) {
+            while (scanner.hasNext()) {
+                noiseWordsArr.add(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return noiseWordsArr;
     }
 
     public static boolean isMatch(Set<String> inputNameSet, Set<String> listNameSet) {
