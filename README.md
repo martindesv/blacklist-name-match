@@ -7,4 +7,4 @@ java src/main/java/Main
 
 mvn test
 
-mvn clean compile exec:java -Dexec.args="'osama bin laden' names.txt noise.txt"
+mvn clean compile exec:java -Dexec.args="'osama bin laden'"
