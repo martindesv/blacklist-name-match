@@ -1,35 +1,21 @@
 import org.junit.Test;
+import java.util.Set;
 import static org.junit.Assert.*;
 
 public class MainTest {
+    Set<String> noiseWordsSet = MatchFinder.createNoiseWordsSet("noise.txt");
 
     @Test
     public void TestEquals() {
-        assertTrue(Main.isMatch(
-                Main.createNameSet("Osama Laden"),
-                Main.createNameSet("Osama Bin Laden")));
-
-        assertTrue(Main.isMatch(
-                Main.createNameSet("Bin Laden, Osama"),
-                Main.createNameSet("osama Bin LADEN")));
-
-        assertTrue(Main.isMatch(
-                Main.createNameSet("Laden Osama Bin"),
-                Main.createNameSet("Osama Bin")));
-
-        assertTrue(Main.isMatch(
-                Main.createNameSet("Oscar"),
-                Main.createNameSet("oscar")));
+        assertTrue(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Osama to the Laden", noiseWordsSet),
+                MatchFinder.createNameSet("Osama Bin Laden,", noiseWordsSet)));
     }
 
     @Test
     public void TestNotEquals() {
-        assertFalse(Main.isMatch(
-                Main.createNameSet("Oscar"),
-                Main.createNameSet("Oscarx")));
-
-        assertFalse(Main.isMatch(
-                Main.createNameSet("Osama Bin Laden"),
-                Main.createNameSet("Osama binn lada")));
+        assertFalse(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Oscarto", noiseWordsSet),
+                MatchFinder.createNameSet("Oscar", noiseWordsSet)));
     }
 }

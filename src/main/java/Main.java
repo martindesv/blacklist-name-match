@@ -4,7 +4,6 @@ public class Main {
         final String namesFileLocation = args[1];
         final String noiseWordsFileLocation = args[2];
 
-        FindName findName = new FindName(inputName, namesFileLocation, noiseWordsFileLocation);
-        findName.checkIfMatch();
+        MatchFinder.findMatch(inputName, namesFileLocation, noiseWordsFileLocation);
     }
 }
