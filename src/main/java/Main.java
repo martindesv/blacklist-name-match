@@ -10,7 +10,7 @@ public class Main {
 
         Properties prop = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream stream = loader.getResourceAsStream("filesLocation.properties");
+        InputStream stream = loader.getResourceAsStream("config.properties");
         prop.load(stream);
 
         if (args.length == 0) {
@@ -21,10 +21,8 @@ public class Main {
         final String inputName = args[0];
         final String namesFileLocation = prop.getProperty("namesFileLocation");
         final String noiseWordsFileLocation = prop.getProperty("noiseWordsFileLocation");
+        final boolean acceptTypos = Boolean.parseBoolean(prop.getProperty("acceptTypos"));
 
-        MatchFinder.findMatch(inputName, namesFileLocation, noiseWordsFileLocation);
-
-        LevenshteinDistance distance = new LevenshteinDistance();
-        System.out.println("test " + distance.apply("osama bin laden","osama bin laden"));
+        MatchFinder.findMatch(inputName, namesFileLocation, noiseWordsFileLocation, acceptTypos);
     }
 }
