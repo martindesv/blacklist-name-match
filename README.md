@@ -1,10 +1,18 @@
-Blacklist Name Matching
+# Blacklist Name Matching
 
-javac src/main/java/Main.java
-java src/main/java/Main
+## Technologies used
+* Apache Maven 3.6.3
+* openjdk version "1.8.0_312"
 
-./run.sh "Mary Tree" "/home/m/Desktop/test-projects/lhv/blacklist-name-match/names.txt"
+## Setting up the program
+Open the file found at `src/main/resources/config.properties`  
+and set the following arguments for the program:
+* namesFileLocation
+* noiseWordsFileLocation
+* acceptTypos
 
-mvn test
+## Running the program
+From terminal run `mvn compile exec:java -Dexec.args="'Oscar'"`
 
-mvn clean compile exec:java -Dexec.args="'osama bin laden'"
+where `-Dexec.args` value is the input name to validate against  
+NB! Single quotes are important
