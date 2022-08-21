@@ -24,3 +24,7 @@ NB! Single quotes are important
 
 ## Running unit tests
 From terminal run `mvn test`
+
+## Additional info
+Learn more about Levenshtein Distance:  
+https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/similarity/LevenshteinDistance.html
