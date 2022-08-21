@@ -13,6 +13,11 @@ public class Main {
         InputStream stream = loader.getResourceAsStream("filesLocation.properties");
         prop.load(stream);
 
+        if (args.length == 0) {
+            System.out.println("Please pass a name to the program");
+            return;
+        }
+
         final String inputName = args[0];
         final String namesFileLocation = prop.getProperty("namesFileLocation");
         final String noiseWordsFileLocation = prop.getProperty("noiseWordsFileLocation");

@@ -28,5 +28,9 @@ public class MainTest {
         assertFalse(MatchFinder.isMatch(
                 MatchFinder.createNameSet("Oscarto"),
                 MatchFinder.createNameSet("Oscar")));
+
+        assertFalse(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Oscar T"),
+                MatchFinder.createNameSet("Oscar")));
     }
 }
