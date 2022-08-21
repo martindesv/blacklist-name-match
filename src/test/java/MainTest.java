@@ -16,21 +16,35 @@ public class MainTest {
     public void TestEquals() {
         assertTrue(MatchFinder.isMatch(
                 MatchFinder.createNameSet("Osama to the Laden"),
-                MatchFinder.createNameSet("Osama Bin Laden,")));
+                MatchFinder.createNameSet("Osama Bin Laden,"), false)
+        );
 
         assertTrue(MatchFinder.isMatch(
                 MatchFinder.createNameSet("Osama to the"),
-                MatchFinder.createNameSet("Osama")));
+                MatchFinder.createNameSet("Osama"), false)
+        );
+
+        assertTrue(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Oscara"),
+                MatchFinder.createNameSet("Oscar"), true)
+        );
     }
 
     @Test
     public void TestNotEquals() {
         assertFalse(MatchFinder.isMatch(
                 MatchFinder.createNameSet("Oscarto"),
-                MatchFinder.createNameSet("Oscar")));
+                MatchFinder.createNameSet("Oscar"), false)
+        );
 
         assertFalse(MatchFinder.isMatch(
                 MatchFinder.createNameSet("Oscar T"),
-                MatchFinder.createNameSet("Oscar")));
+                MatchFinder.createNameSet("Oscar"), false)
+        );
+
+        assertFalse(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Oscara"),
+                MatchFinder.createNameSet("Oscar"), false)
+        );
     }
 }
