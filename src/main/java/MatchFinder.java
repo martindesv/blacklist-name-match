@@ -11,13 +11,18 @@ public class MatchFinder {
 
     public static void findMatchInNamesFile(String namesFileLocation, Set<String> noiseWordsSet, Set<String> inputNameSet) {
         try (Scanner scanner = new Scanner(new File(namesFileLocation))) {
+            boolean isMatch = false;
             while (scanner.hasNext()) {
                 Set<String> listNameSet = createNameSet(scanner.nextLine(), noiseWordsSet);
                 if (isMatch(inputNameSet, listNameSet)) {
+                    isMatch = true;
+                    System.out.println("Match was found!");
                     System.out.println("inputNameSet " + inputNameSet);
                     System.out.println("listNameSet " + listNameSet);
-                    System.out.println("Match is found!");
                 }
+            }
+            if (!isMatch) {
+                System.out.println("Match was not found");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
