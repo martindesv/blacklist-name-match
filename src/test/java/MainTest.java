@@ -1,21 +1,32 @@
+import org.junit.BeforeClass;
 import org.junit.Test;
-import java.util.Set;
+import java.util.TreeSet;
+
 import static org.junit.Assert.*;
 
 public class MainTest {
-    Set<String> noiseWordsSet = MatchFinder.createNoiseWordsSet("noise.txt");
+    @BeforeClass
+    public static void start() {
+        MatchFinder.noiseWordsSet = new TreeSet<>();
+        MatchFinder.noiseWordsSet.add("to");
+        MatchFinder.noiseWordsSet.add("the");
+    }
 
     @Test
     public void TestEquals() {
         assertTrue(MatchFinder.isMatch(
-                MatchFinder.createNameSet("Osama to the Laden", noiseWordsSet),
-                MatchFinder.createNameSet("Osama Bin Laden,", noiseWordsSet)));
+                MatchFinder.createNameSet("Osama to the Laden"),
+                MatchFinder.createNameSet("Osama Bin Laden,")));
+
+        assertTrue(MatchFinder.isMatch(
+                MatchFinder.createNameSet("Osama to the"),
+                MatchFinder.createNameSet("Osama")));
     }
 
     @Test
     public void TestNotEquals() {
         assertFalse(MatchFinder.isMatch(
-                MatchFinder.createNameSet("Oscarto", noiseWordsSet),
-                MatchFinder.createNameSet("Oscar", noiseWordsSet)));
+                MatchFinder.createNameSet("Oscarto"),
+                MatchFinder.createNameSet("Oscar")));
     }
 }

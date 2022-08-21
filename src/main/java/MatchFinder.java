@@ -3,9 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class MatchFinder {
+    static String noiseWordsFileLocation;
+    static Set<String> noiseWordsSet;
     public static void findMatch(String inputName, String namesFileLocation, String noiseWordsFileLocation) {
-        Set<String> noiseWordsSet = createNoiseWordsSet(noiseWordsFileLocation);
-        Set<String> inputNameSet = createNameSet(inputName, noiseWordsSet);
+        MatchFinder.noiseWordsFileLocation = noiseWordsFileLocation;
+        MatchFinder.noiseWordsSet = createNoiseWordsSet();
+        Set<String> inputNameSet = createNameSet(inputName);
         findMatchInNamesFile(namesFileLocation, noiseWordsSet, inputNameSet);
     }
 
@@ -13,7 +16,7 @@ public class MatchFinder {
         try (Scanner scanner = new Scanner(new File(namesFileLocation))) {
             boolean isMatch = false;
             while (scanner.hasNext()) {
-                Set<String> listNameSet = createNameSet(scanner.nextLine(), noiseWordsSet);
+                Set<String> listNameSet = createNameSet(scanner.nextLine());
                 if (isMatch(inputNameSet, listNameSet)) {
                     isMatch = true;
                     System.out.println("Match was found!");
@@ -29,18 +32,18 @@ public class MatchFinder {
         }
     }
 
-    public static Set<String> createNameSet(String inputName, Set<String> noiseWordsSet) {
+    public static Set<String> createNameSet(String inputName) {
         String[] inputNameArray;
         inputNameArray = inputName.replaceAll("\\p{Punct}", "").split(" ");
         Set<String> nameSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
         Collections.addAll(nameSet, inputNameArray);
-        nameSet.removeAll(noiseWordsSet);
+        nameSet.removeAll(MatchFinder.noiseWordsSet);
         return nameSet;
     }
 
-    public static Set<String> createNoiseWordsSet(String noiseWordsFileLocation) {
+    public static Set<String> createNoiseWordsSet() {
         Set<String> noiseWordsSet = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        try (Scanner scanner = new Scanner(new File(noiseWordsFileLocation))) {
+        try (Scanner scanner = new Scanner(new File(MatchFinder.noiseWordsFileLocation))) {
             while (scanner.hasNext()) {
                 noiseWordsSet.add(scanner.nextLine());
             }
