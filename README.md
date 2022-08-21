@@ -16,3 +16,7 @@ From terminal run `mvn compile exec:java -Dexec.args="'Oscar'"`
 
 where `-Dexec.args` value is the input name to validate against  
 NB! Single quotes are important
+
+### Output
+
+![build image](images/build.png)
