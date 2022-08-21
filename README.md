@@ -6,3 +6,5 @@ java src/main/java/Main
 ./run.sh "Mary Tree" "/home/m/Desktop/test-projects/lhv/blacklist-name-match/names.txt"
 
 mvn test
+
+mvn exec:java -Dexec.args="'osama bin laden' names.txt noise.txt"
