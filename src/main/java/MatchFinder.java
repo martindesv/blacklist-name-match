@@ -9,10 +9,10 @@ public class MatchFinder {
         MatchFinder.noiseWordsFileLocation = noiseWordsFileLocation;
         MatchFinder.noiseWordsSet = createNoiseWordsSet();
         Set<String> inputNameSet = createNameSet(inputName);
-        findMatchInNamesFile(namesFileLocation, noiseWordsSet, inputNameSet);
+        findMatchInNamesFile(namesFileLocation, inputNameSet);
     }
 
-    public static void findMatchInNamesFile(String namesFileLocation, Set<String> noiseWordsSet, Set<String> inputNameSet) {
+    public static void findMatchInNamesFile(String namesFileLocation, Set<String> inputNameSet) {
         try (Scanner scanner = new Scanner(new File(namesFileLocation))) {
             boolean isMatch = false;
             while (scanner.hasNext()) {
